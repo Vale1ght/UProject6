@@ -1,27 +1,21 @@
 import asyncio
 import logging
-import os
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-from handlers import start
-
-from dotenv import load_dotenv
-from pathlib import Path
-
-env_path = Path(__file__).parent / "config" / ".env"
-load_dotenv(dotenv_path=env_path)
-
-TOKEN = os.getenv("BOT_TOKEN")
+from config.config_reader import config
+from handlers import get_handlers_router
 
 
 async def main() -> None:
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=config.bot_token, 
+              default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
 
-    dp.include_routers(start.router)
+    main_router = get_handlers_router()
+    dp.include_router(main_router)
 
     await dp.start_polling(bot)
 

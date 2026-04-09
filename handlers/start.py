@@ -7,4 +7,4 @@ router = Router()
 @router.message(CommandStart())
 async def start_cmd(message: Message):
     await message.answer(f"Привет, {message.from_user.first_name}! Я - UProject6, но для тебя просто - Юпи.\n" 
-                         "Я буду помогать тебе в скучнойстудентческой рутине. Чтобы узнать мои команды напиши \"/help\".")
+                         "Я ещё в разработке, поэтому ничего не умею.")
